@@ -12,7 +12,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: Deploy ACR
+- stage: DeployACR
   displayName: ACR
   jobs:
   - job:
