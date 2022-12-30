@@ -36,3 +36,16 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: latest
+- stage: Staging
+  dependsOn: 'Build'
+  displayName: WebApp Stage
+  jobs:
+  - job: 
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: AzureWebAppContainer@1
+      inputs:
+        azureSubscription: 'heloworld'
+        appName: 'heloworld'
+        containers: 'pythonacrapi.azurecr.io/nodejs:latest'
