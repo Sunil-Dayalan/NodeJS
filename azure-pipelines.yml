@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '39efb4fe-57a7-47a2-b8ae-edb0615d9335'
-  imageRepository: 'nodejs'
+  imageRepository: 'NodeJS'
   containerRegistry: 'pythonacrapi.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
