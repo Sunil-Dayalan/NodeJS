@@ -49,3 +49,16 @@ stages:
         azureSubscription: 'heloworld'
         appName: 'heloworld'
         containers: 'pythonacrapi.azurecr.io/nodejs:latest'
+- stage: Production
+  dependsOn: 'Staging'
+  displayName: WebApp Prod
+  jobs:
+  - job: 
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: AzureWebAppContainer@1
+      inputs:
+        azureSubscription: 'heloworld'
+        appName: 'heloworld'
+        containers: 'pythonacrapi.azurecr.io/nodejs:latest'
