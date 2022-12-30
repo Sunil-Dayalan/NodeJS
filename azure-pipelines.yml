@@ -1,0 +1,39 @@
+# Azure Container Registry
+# Build and push an image to Azure Container Registry
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Deploy ACR
+  displayName: ACR
+  jobs:
+  - job:
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'heloworld'
+        subscriptionId: 'e10f0431-c516-4dcd-834e-4c4371da5220'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'Stage1'
+        location: 'East US'
+        templateLocation: 'Linked artifact'
+        csmFile: '$(System.DefaultWorkingDirectory)/_Sunil-Dayalan_Hello-World/ARM templates/ACR Template.json'
+        csmParametersFile: '$(System.DefaultWorkingDirectory)/_Sunil-Dayalan_Hello-World/ARM templates/ACR Parameters.json'
+        deploymentMode: 'Incremental'
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'heloworld'
+        ScriptType: 'InlineScript'
+        Inline: 'Update-AzContainerRegistry -Name pythonacrapi  -ResourceGroupName Stage1 -EnableAdminUser'
+        azurePowerShellVersion: 'LatestVersion'
