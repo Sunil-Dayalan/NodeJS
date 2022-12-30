@@ -28,8 +28,8 @@ stages:
         resourceGroupName: 'Stage1'
         location: 'East US'
         templateLocation: 'Linked artifact'
-        csmFile: '''$(Build.SourcesDirectory)/ACRtemplate.json'''
-        csmParametersFile: '''$(Build.SourcesDirectory)/ACRparameters.json'''
+        csmFile: '$(Build.SourcesDirectory)/ACRtemplate.json'
+        csmParametersFile: '$(Build.SourcesDirectory)/ACRparameters.json'
         deploymentMode: 'Incremental'
     - task: AzurePowerShell@5
       inputs:
